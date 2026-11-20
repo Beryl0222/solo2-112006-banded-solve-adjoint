@@ -1,0 +1,245 @@
+{
+  "offsets": [
+    -1,
+    0,
+    1
+  ],
+  "tol": 1e-09,
+  "pivot_floor": 1e-10,
+  "scratch_bytes": 220,
+  "slots": {
+    "d": [
+      2.03,
+      true
+    ],
+    "l": [
+      -0.25,
+      true
+    ],
+    "p": [
+      0.7,
+      false
+    ],
+    "z": [
+      0,
+      true
+    ]
+  },
+  "profiles": {
+    "ridge": {
+      "active": [
+        true,
+        true,
+        true,
+        false,
+        true
+      ],
+      "bands": [
+        [
+          null,
+          [
+            "d",
+            1
+          ],
+          [
+            "l",
+            1
+          ]
+        ],
+        [
+          [
+            "l",
+            1
+          ],
+          [
+            "d",
+            1
+          ],
+          [
+            "l",
+            2
+          ]
+        ],
+        [
+          [
+            "l",
+            2
+          ],
+          [
+            "d",
+            1
+          ],
+          null
+        ],
+        [
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          [
+            "d",
+            1
+          ],
+          null
+        ]
+      ],
+      "boundary": {
+        "left": null,
+        "right": null,
+        "single": {
+          "row": [
+            null,
+            [
+              "d",
+              1
+            ],
+            null
+          ],
+          "add_rhs": [
+            "p",
+            1
+          ]
+        }
+      }
+    },
+    "fault": {
+      "active": [
+        true
+      ],
+      "bands": [
+        [
+          null,
+          [
+            "z",
+            1
+          ],
+          null
+        ]
+      ],
+      "boundary": {
+        "left": null,
+        "right": null,
+        "single": null
+      }
+    }
+  },
+  "rhs": {
+    "easy": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "edge": [
+      1.77,
+      3.11,
+      -21.5,
+      0,
+      0.13
+    ],
+    "drift": [
+      4,
+      -7,
+      9,
+      0,
+      0.31
+    ],
+    "bad": [
+      1
+    ]
+  },
+  "events": [
+    [
+      "solve",
+      "old",
+      "ridge",
+      [
+        "easy",
+        "edge"
+      ]
+    ],
+    [
+      "solve",
+      "fault",
+      "fault",
+      [
+        "bad"
+      ]
+    ],
+    [
+      "publish",
+      "r1",
+      {
+        "ridge": {
+          "left": {
+            "row": [
+              null,
+              [
+                "p",
+                1
+              ],
+              [
+                "l",
+                2
+              ]
+            ],
+            "add_rhs": [
+              "d",
+              0.1
+            ]
+          },
+          "right": null,
+          "single": {
+            "row": [
+              null,
+              [
+                "d",
+                1
+              ],
+              null
+            ],
+            "add_rhs": [
+              "p",
+              1
+            ]
+          }
+        }
+      }
+    ],
+    [
+      "solve",
+      "new",
+      "ridge",
+      [
+        "drift"
+      ]
+    ],
+    [
+      "back",
+      "old",
+      "edge",
+      [
+        1,
+        0,
+        -2,
+        0,
+        2
+      ]
+    ],
+    [
+      "back",
+      "new",
+      "drift",
+      [
+        1,
+        0,
+        -2,
+        0,
+        2
+      ]
+    ]
+  ]
+}
